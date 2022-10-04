@@ -1,3 +1,6 @@
 .vscode
 work_space.cpp
 .DS_Store
+*.out
+input.txt
+output.txt
