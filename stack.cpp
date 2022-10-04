@@ -13,18 +13,29 @@ typedef struct stack {
 } stack;
 
 void push(stack *s, int v) {
-  //////////////////////////////
-  //////////////////////////////
+  node *new_node = new node();
+  new_node->value = v;
+
+  if (s->top){
+    new_node->next = s->top;
+    s->top = new_node;
+  } else{
+    s->top = new_node;
+  }
+  s->size++;
 }
 
 int is_stack_empty(stack *s) {
-  //////////////////////////////
-  ///////// return ??? /////////
+  if (s->size){
+    return -1;
+  }
 }
 
 int pop(stack *s) {
-  //////////////////////////////
-  ///////// return ??? /////////
+  int value = s->top->value;
+  s->top = s->top->next;
+  s->size--;
+  return value;
 }
 
 int main() {
