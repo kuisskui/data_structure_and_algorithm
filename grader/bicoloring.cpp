@@ -4,13 +4,18 @@
 using namespace std;
 
 int n_nodes, n_edges;
-const int MAX_NODES = 100010;
+const int MAX_NODES = 210;
 vector<int> adjacency[MAX_NODES];
 int degree[MAX_NODES];
 
-void read_input()
+int read_input()
 {
-    cin >> n_nodes >> n_edges;
+    cin >> n_nodes;
+    if (!n_nodes)
+    {
+        return 0;
+    }
+    cin >> n_edges;
     for (int i = 0; i < n_nodes; i++)
     {
         degree[i] = 0;
@@ -20,22 +25,13 @@ void read_input()
     {
         int u, v;
         cin >> u >> v;
-        u--;
-        v--;
 
         adjacency[u].push_back(v);
         degree[u]++;
         adjacency[v].push_back(u);
         degree[v]++;
     }
-}
-
-void clear_adjacency()
-{
-    for (int i = 0; i < n_edges; i++)
-    {
-        adjacency[i].clear();
-    }
+    return 1;
 }
 
 void print_adjacency(vector<int> adjacency[], int n_nodes)
@@ -48,6 +44,14 @@ void print_adjacency(vector<int> adjacency[], int n_nodes)
             cout << adjacency[node][each_node] << ", ";
         }
         cout << ']' << endl;
+    }
+}
+
+void clear_adjacency()
+{
+    for (int i = 0; i < n_nodes; i++)
+    {
+        adjacency[i].clear();
     }
 }
 
@@ -104,7 +108,7 @@ bool bfs(int s)
                 {
                     return false;
                 }
-                if (!seen[v])
+                if (layer[v] == -1)
                 {
                     next_layer.push_back(v);
                     seen[v] = true;
@@ -129,23 +133,23 @@ bool bfs(int s)
 
 int main()
 {
-    int rounds;
-    cin >> rounds;
-    while (rounds--)
+    while (true)
     {
         bool state = true;
-        read_input();
+        if (!read_input())
+        {
+            break;
+        }
         init_bfs();
 
-        // print_adjacency(adjacency, n_nodes);
         state = bfs(0);
         if (state)
         {
-            cout << "yes" << endl;
+            cout << "BICOLORABLE." << endl;
         }
         else
         {
-            cout << "no" << endl;
+            cout << "NOT BICOLORABLE." << endl;
         }
         clear_adjacency();
     }
