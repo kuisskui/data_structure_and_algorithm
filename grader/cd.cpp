@@ -1,4 +1,5 @@
 #include <iostream>
+<<<<<<< HEAD
 #include <algorithm>
 
 using namespace std;
@@ -75,19 +76,45 @@ int main()
     {
         TreeNode *Jack_root = 0;
         TreeNode *Jill_root = 0;
+=======
+#include <set>
+
+using namespace std;
+
+const int MAX_CD = 1000010;
+int main()
+{
+    int Jack_cd;
+    int Jill_cd;
+    while (true)
+    {
+        set<int> Jack, Jill;
+>>>>>>> 25d044ccdce6f589b5cc19fdac1c96492fb13407
         int counter = 0;
         int x = 0;
 
         cin >> Jack_cd >> Jill_cd;
+<<<<<<< HEAD
         for (int i = 0; i < Jack_cd; i++)
         {
             cin >> x;
             Jack[i] = x;
             insert(Jack_root, x);
+=======
+        if (Jack_cd == 0 && Jill_cd == 0)
+        {
+            break;
+        }
+        for (int i = 0; i < Jack_cd; i++)
+        {
+            cin >> x;
+            Jack.insert(x);
+>>>>>>> 25d044ccdce6f589b5cc19fdac1c96492fb13407
         }
         for (int i = 0; i < Jill_cd; i++)
         {
             cin >> x;
+<<<<<<< HEAD
             insert(Jill_root, x);
         }
         // cout << "This is the Jack's root" << endl;
@@ -97,11 +124,21 @@ int main()
         for (int i = 0; i < Jack_cd; i++)
         {
             if (find(Jill_root, Jack[i]))
+=======
+            Jill.insert(x);
+        }
+
+        for (auto i = Jack.begin(); i != Jack.end(); i++)
+        {
+
+            if (Jill.find(*i) != Jill.end())
+>>>>>>> 25d044ccdce6f589b5cc19fdac1c96492fb13407
             {
                 counter += 1;
             }
         }
 
+<<<<<<< HEAD
         if (!Jack_cd && !Jill_cd)
         {
             break;
@@ -109,3 +146,8 @@ int main()
         cout << counter << endl;
     }
 }
+=======
+        cout << counter << endl;
+    }
+}
+>>>>>>> 25d044ccdce6f589b5cc19fdac1c96492fb13407
