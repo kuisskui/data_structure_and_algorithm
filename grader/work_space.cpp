@@ -1,20 +1,29 @@
 #include <iostream>
 #include <set>
+
 using namespace std;
-int main()
+
+int main(void)
 {
-  std::set<int> Set;
-  std::set<int>::iterator one, end;
-  for (int i = 1; i < 10; i++)
-    Set.insert(i * 10);
-  int value = 25;
-  one = Set.lower_bound(100);
-  end = Set.upper_bound(100);
-  cout << "Elements are: ";
-  for (std::set<int>::iterator i = Set.begin(); i != Set.end(); ++i)
-    std::cout << ' ' << *i;
-  std::cout << ' ' << endl;
-  cout << "lower: " << *one << endl;
-  cout << "upper: " << *end << endl;
+  set<int> m = {10, 20, 30, 40};
+
+  int value = 5;
+  // auto up = m.upper_bound(value);
+  auto lo = m.lower_bound(value);
+
+  // cout << "Upper bound of b is(>): " << *up << endl;
+  cout << "Lower bound of b is(>): " << *lo << endl;
+  // if (up == m.end()){
+  //   cout << "it's here" << endl;
+  // }
+  value = 10;
+  // up = m.upper_bound(value);
+  lo = m.lower_bound(value);
+  if ((lo--) == m.begin()){
+    cout << "it's here again" << endl;
+  }
+  // cout << *(--up) << endl;
+  // cout << *(up) << endl;
+
   return 0;
 }
