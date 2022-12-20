@@ -1,144 +1,42 @@
 #include <iostream>
 #include <vector>
+#include <unordered_set>
 
 using namespace std;
 
-int n_nodes, n_edges;
-int my_speed;
-int n_questions;
-int start;
-int target;
-int power;
-
-const int MAX_NODES = 10000;
-vector<int> adjacency[MAX_NODES];
-
-int degree[MAX_NODES];
-int layer[MAX_NODES];
-int min_speed[MAX_NODES][MAX_NODES];
-bool seen[MAX_NODES];
-bool is_possible = false;
-
-void read_input()
+int getIndex(vector<int> v, int K)
 {
-    cin >> n_nodes >> n_edges >> my_speed >> n_questions;
-    // for (int i = 0; i < n_nodes; i++)
-    // {
-    //     degree[i] = 0;
-    // }
+    auto it = find(v.begin(), v.end(), K);
 
-    for (int i = 0; i < n_edges; i++)
+    // If element was found
+    if (it != v.end())
     {
-        int u, v, s;
-        cin >> u >> v >> s;
-        u--;
-        v--;
-        min_speed[u][v] = s;
-        min_speed[v][u] = s;
 
-        adjacency[u].push_back(v);
-        degree[u]++;
-        adjacency[v].push_back(u);
-        degree[v]++;
+        // calculating the index
+        // of K
+        int index = it - v.begin();
+        return index;
     }
-}
-
-void print_min_speed()
-{
-    for (int i = 0; i < n_edges;i++)
+    else
     {
-        for (int j = 0; j < n_edges;j++)
-        {
-            cout << min_speed[i][j] << ' ';
-        }
-        cout << endl;
+        // If the element is not
+        // present in the vector
+        return -1;
     }
-}
-void clear_adjacency()
-{
-    for (int i = 0; i < n_edges; i++)
-    {
-        adjacency[i].clear();
-    }
-}
-
-void print_adjacency(vector<int> adjacency[], int n_nodes)
-{
-    for (int node = 0; node < n_nodes; node++)
-    {
-        cout << "adjacency: " << node << ", contain: [";
-        for (int each_node = 0; each_node < adjacency[node].size(); each_node++)
-        {
-            cout << adjacency[node][each_node] << ", ";
-        }
-        cout << ']' << endl;
-    }
-}
-
-void init_bfs()
-{
-    for (int u = 0; u < n_nodes; u++)
-    {
-        layer[u] = -1;
-        seen[u] = false;
-    }
-}
-
-bool find_member(vector<int> vector, int value)
-{
-    for (auto i = vector.begin(); i != vector.end(); i++)
-    {
-        int u = *i;
-        if (u == value)
-        {
-            return true;
-        }
-    }
-    return false;
-}
-
-void bfs(int s, bool seen_local[MAX_NODES])
-{
-    if (s == target)
-    {
-        is_possible = true;
-        return;
-    }
-    seen_local[s] = true;
-    for (auto i = adjacency[s].begin(); i != adjacency[s].end(); i++)
-    {
-        if (my_speed >= min_speed[s][*i])
-        {
-            // if (difference > 0)
-            // {
-            //     power -= difference;
-            // }
-            bfs(*i, seen_local);
-        }
-    }
-    return;
 }
 
 int main()
 {
-    read_input();
-    print_adjacency(adjacency, n_nodes);
-    print_min_speed();
-    while(true)
+    int n_poles, difference, temp;
+    vector<int> all_poles;
+    cin >> n_poles;
+    for (int i = 1; i <= n_poles; i++)
     {
-        is_possible = false;
-        init_bfs();
-        cin >> start >> target;
-        start--;
-        target--;
-        bfs(start, seen);
-        if (is_possible)
-        {
-            cout << "yes" << endl;
-        }
-        else
-        {
-            cout << "no" << endl;
-        }
+        all_poles.push_back(i);
     }
+    auto j = all_poles.begin() + 5; // number 6
+    auto it = find(all_poles.begin(), j, 6);
+    bool al = it == j;
+    cout << *it << endl;
+    cout << al << endl;
 }
