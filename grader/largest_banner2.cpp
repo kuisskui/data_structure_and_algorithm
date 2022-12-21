@@ -1,29 +1,8 @@
 #include <iostream>
 #include <vector>
-#include <unordered_set>
+#include <algorithm>
 
 using namespace std;
-
-int getIndex(vector<int> v, int K)
-{
-    auto it = find(v.begin(), v.end(), K);
-
-    // If element was found
-    if (it != v.end())
-    {
-
-        // calculating the index
-        // of K
-        int index = it - v.begin();
-        return index;
-    }
-    else
-    {
-        // If the element is not
-        // present in the vector
-        return -1;
-    }
-}
 
 int main()
 {
@@ -42,21 +21,27 @@ int main()
     for (auto i = all_poles.begin(); i != all_poles.end(); i++)
     {
         auto j = i;
-        cout << "Pole: " << *i << endl;
+        // cout << "Pole: " << *i << endl;
         while (true)
         {
             j = lower_bound(j + 1, all_poles.end(), *i - difference);
+            // cout << "hello: " << *j << endl;
             if (j == all_poles.end())
             {
                 break;
             }
             if (abs(*i - *j) <= difference && find(i + 1, j, *j) == j && find(i + 1, j, *i) == j)
             {
-                cout << "size: " << getIndex(all_poles, *j) - getIndex(all_poles, *i) << endl;
-                banner_size = max(banner_size, getIndex(all_poles, *j) - getIndex(all_poles, *i));
+                int x = (j - all_poles.begin()) - (i - all_poles.begin());
+                // cout << "size: " << x << endl;
+                banner_size = max(banner_size, x);
             }
+            // if(*i == *j)
+            // {
+            //     break;
+            // }
         }
-        cout << endl;
+        // cout << endl;
     }
 
     cout << banner_size << endl;
